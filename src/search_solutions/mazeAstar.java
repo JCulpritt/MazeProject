@@ -18,12 +18,13 @@ public class mazeAstar extends BaseSearch<Square, String> {
 
     public static void main(String[] args) {
 
-        maze maze = new maze(2000, 2000);
+        maze maze = new maze(3, 3);
         maze.generateMaze();
+        maze.writeMaze();
 
         mazeProblem m = new mazeProblem(maze.getMazeGrid());
         m.setMazeGrid(maze.getMazeGrid());
-        //maze.initializeWindow(maze.getMazeGrid());
+        maze.initializeWindow(maze.getMazeGrid());
 
         mazeAstar t = new mazeAstar(m);
 
@@ -31,8 +32,8 @@ public class mazeAstar extends BaseSearch<Square, String> {
         ArrayList<Square> pathList = t.search();
         double endTime = System.nanoTime();
 
-        //m.changePathInGrid(pathList);
-        //maze.initializeWindow(m.getMazeGrid());
+        m.changePathInGrid(pathList);
+        maze.initializeWindow(m.getMazeGrid());
 
         System.out.printf(
                 "-------------------------\nTime taken: %.3f secs\n-------------------------",

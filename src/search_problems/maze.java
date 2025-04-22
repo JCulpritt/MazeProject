@@ -12,14 +12,19 @@ public class maze {
     static class Cell {
         int x, y;
         boolean visited = false;
-        Cell(int x, int y) { this.x = x; this.y = y; }
+        Cell(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
     }
 
     static class Edge {
         Cell from, to;
         int weight;
         Edge(Cell from, Cell to, int weight) {
-            this.from = from; this.to = to; this.weight = weight;
+            this.from = from;
+            this.to = to;
+            this.weight = weight;
         }
     }
 
@@ -69,8 +74,19 @@ public class maze {
 
         // Carve entrance (top row) and exit (bottom row)
         mazeGrid[0][start.x * 2 + 1] = 0; // entry at top
-        Cell end = grid[height - 1][rand.nextInt(width)];
-        mazeGrid[height * 2][end.x * 2 + 1] = 0; // exit at bottom
+
+
+        List<Cell> bottomRowVisited = new ArrayList<>();
+        for(int i = 0; i < width; i++) {
+            Cell candidate = grid[height-1][i];
+            if(candidate.visited){
+                bottomRowVisited.add(candidate);
+            }
+        }
+        if (!bottomRowVisited.isEmpty()) {
+            Cell end = bottomRowVisited.get(rand.nextInt(bottomRowVisited.size()));
+            mazeGrid[height * 2][end.x * 2 + 1] = 0;
+        }
     }
 
     private void carve(Cell cell) {
